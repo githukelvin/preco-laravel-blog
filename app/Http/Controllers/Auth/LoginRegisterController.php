@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Responses\ApiResponse;
-use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,11 +21,11 @@ class LoginRegisterController extends Controller
 
         // Create a new user
         $user = User::create([
-            'username' => $credentials->username,
-            'firstname' => $credentials->firstname,
-            'lastname' => $credentials->lastname,
-            'email' => $credentials->email,
-            'password' => Hash::make($credentials->password)
+            'username' => $credentials['username'],
+            'firstname' => $credentials['firstname'],
+            'lastname' => $credentials['lastname'],
+            'email' => $credentials['email'],
+            'password' => Hash::make($credentials['password'])
         ]);
 
         if (!$user) {
