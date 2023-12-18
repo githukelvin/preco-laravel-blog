@@ -8,7 +8,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
-    /**
+     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -24,8 +24,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'nullable|email|unique:users,email',
-            'password' => 'required|min:8',
+            'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 
@@ -37,18 +37,16 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'email.required' => 'The email field is required.',
             'email.email' => 'Please provide a valid email address.',
-            'email.unique' => 'The email address is already taken.',
             'password.required' => 'The password field is required.',
-            'password.min' => 'The password must be at least 8 characters.',
-            // Add other error messages for additional validation rules
         ];
     }
 
     /**
      * Handle a failed validation attempt.
      *
-     * @param  Validator  $validator
+     * @param Validator $validator
      * @return void
      *
      * @throws ValidationException
